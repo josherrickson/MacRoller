@@ -47,6 +47,7 @@ struct RollResult: Identifiable {
     let timestamp = Date()
     let diceRolls: [DiceRoll]
     let modifiers: [Modifier]
+    let invalidComponents: [(String, String)]  // (invalid text, error message)
 
     var total: Int {
         diceRolls.map(\.sum).reduce(0, +) + modifiers.map(\.sum).reduce(0, +)
@@ -64,6 +65,7 @@ struct DiceParser {
 
         var diceRolls: [DiceRoll] = []
         var modifiers: [Modifier] = []
+        var invalidComponents: [(String, String)] = []
 
         let components = normalized.components(separatedBy: CharacterSet(charactersIn: "+-"))
             .map { $0.trimmingCharacters(in: .whitespaces) }
@@ -72,39 +74,89 @@ struct DiceParser {
         let operators = normalized.matches(of: /[+-]/).map { String($0.0) }
 
         for (i, component) in components.enumerated() {
-            // For first component, use + if no operator present
             let operation = i == 0 && !(normalized.hasPrefix("+") || normalized.hasPrefix("-"))
                 ? .add
                 : (Operation(rawValue: operators[i - 1]) ?? .add)
 
             if component.contains("d") {
-                guard component.filter({ $0 == "d" }).count == 1 else {
-                    continue  // Skip invalid components with multiple 'd's
+                // If there are multiple 'd', error
+                if component.filter({ $0 == "d" }).count > 1 {
+                    invalidComponents.append((component, "Multiple 'd' characters"))
+                    continue
                 }
-                print(component)
+
+                // If there's anything but 'd', numbers and whitespace, error
+                let validCharacters = CharacterSet.decimalDigits
+                    .union(CharacterSet(charactersIn: "d"))
+                    .union(CharacterSet.whitespaces)
+
+                let invalidChars = component.unicodeScalars
+                    .filter { !validCharacters.contains($0) }
+                    .map(String.init)
+
+                if !invalidChars.isEmpty {
+                    invalidComponents.append((component,
+                                              "Invalid character\(invalidChars.count > 1 ? "s" : ""): \(invalidChars.joined(separator: ", "))"
+                                              ))
+                    continue
+                }
 
                 let parts = component.components(separatedBy: "d")
-                                   .map { $0.trimmingCharacters(in: .whitespaces) }
-                print(parts)
-                let count = parts[0].isEmpty ? 1 : (Int(parts[0]) ?? 1)
-                if let sides = Int(parts[1]), count > 0, sides > 0 {
-                    let results = (0..<count).map { _ in Int.random(in: 1...sides) }
-                    diceRolls.append(DiceRoll(count: count, sides: sides, results: results, operation: operation))
+                               .map { $0.trimmingCharacters(in: .whitespaces) }
+
+                let count = parts[0].isEmpty ? 1 : (Int(parts[0]) ?? 0)
+                let sides = Int(parts[1]) ?? 0
+
+                if count <= 0 {
+                    invalidComponents.append((component, "Invalid number of dice"))
+                    continue
                 }
+                if sides <= 0 {
+                    invalidComponents.append((component, "Invalid dice size"))
+                    continue
+                }
+                let results = (0..<count).map { _ in Int.random(in: 1...sides) }
+                diceRolls.append(DiceRoll(count: count, sides: sides, results: results, operation: operation))
             } else if let value = Int(component) {
                 modifiers.append(Modifier(value: value, operation: operation))
+            } else {
+                invalidComponents.append((component, "Invalid input"))
             }
         }
 
         return RollResult(
             input: input,
             diceRolls: diceRolls,
-            modifiers: modifiers
+            modifiers: modifiers,
+            invalidComponents: invalidComponents
         )
     }
 }
 
 // MARK: - Views
+struct ErrorPopover: View {
+    let invalidComponents: [(String, String)]
+
+    func truncate(_ str: String, maxLength: Int) -> String {
+        if str.count <= maxLength {
+            return str
+        }
+        return String(str.prefix(maxLength)) + "..."
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Errors were found:")
+                .font(.headline)
+            ForEach(invalidComponents, id: \.0) { component, message in
+                Text("• '\(truncate(component, maxLength: 8))': \(truncate(message, maxLength: 40))")
+                    .foregroundColor(.red)
+            }
+        }
+        .padding()
+    }
+}
+
 struct ResultView: View {
     let result: RollResult
 
@@ -139,6 +191,7 @@ struct ResultView: View {
 struct HistoryItemView: View {
     let result: RollResult
     let onReuse: () -> Void
+    @State private var showErrorPopover = false
 
     var body: some View {
         HStack {
@@ -146,6 +199,19 @@ struct HistoryItemView: View {
                 HStack {
                     Text(result.input)
                         .font(.caption)
+                    if !result.invalidComponents.isEmpty {
+                        Button {
+                            showErrorPopover.toggle()
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .foregroundColor(.red)
+                                .font(.caption)
+                        }
+                        .buttonStyle(.plain)
+                        .popover(isPresented: $showErrorPopover, arrowEdge: .bottom) {
+                            ErrorPopover(invalidComponents: result.invalidComponents)
+                        }
+                    }
                     Spacer()
                     Text(result.formattedTime)
                         .font(.caption2)
@@ -174,6 +240,7 @@ struct ContentView: View {
     @State private var rollHistory: [RollResult] = []
     @State private var showHistory = false
     @AppStorage("historyEnabled") private var historyEnabled = false
+    @State private var showErrorPopover = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -188,7 +255,6 @@ struct ContentView: View {
                         get: { historyEnabled },
                         set: { isEnabled in
                             if !isEnabled {
-                                // Clear history when disabling
                                 rollHistory.removeAll()
                                 showHistory = false
                             }
@@ -211,9 +277,24 @@ struct ContentView: View {
             .padding(.bottom, 4)
 
             // Main content
-            TextField("Enter dice roll (e.g. 3d20 + 2)", text: $diceInput)
-                .textFieldStyle(.roundedBorder)
-                .onSubmit(rollDice)
+            HStack {
+                TextField("Enter dice roll (e.g. 3d20 + 2)", text: $diceInput)
+                    .textFieldStyle(.roundedBorder)
+                    .onSubmit(rollDice)
+
+                if let result = rollResult, !result.invalidComponents.isEmpty {
+                    Button {
+                        showErrorPopover.toggle()
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.red)
+                    }
+                    .buttonStyle(.plain)
+                    .popover(isPresented: $showErrorPopover, arrowEdge: .bottom) {
+                        ErrorPopover(invalidComponents: result.invalidComponents)
+                    }
+                }
+            }
 
             Button("Roll", action: rollDice)
                 .disabled(diceInput.isEmpty)
@@ -222,7 +303,7 @@ struct ContentView: View {
                 ResultView(result: result)
             }
 
-            if !rollHistory.isEmpty && historyEnabled{
+            if !rollHistory.isEmpty && historyEnabled {
                 Divider()
 
                 Button {
@@ -267,6 +348,7 @@ struct ContentView: View {
         guard !diceInput.isEmpty else { return }
         let result = DiceParser.parse(diceInput)
         rollResult = result
+        showErrorPopover = false  // Reset popover state on new roll
 
         if historyEnabled {
             rollHistory.insert(result, at: 0)
