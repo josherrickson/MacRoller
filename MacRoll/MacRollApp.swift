@@ -23,7 +23,7 @@ struct DiceRoll: Identifiable {
     }
 
     var description: String {
-        "\(operation.rawValue)\(count)d\(sides)"
+        operation == .subtract ? "-\(count)d\(sides)" : "\(count)d\(sides)"
     }
 }
 
@@ -59,63 +59,41 @@ struct RollResult: Identifiable {
 
 // MARK: - Parser
 struct DiceParser {
-    private static let dicePattern = Regex {
-        Capture {
-            One(.anyOf("+-"))
-        }
-        Capture {
-            OneOrMore(.digit)
-        }
-        "d"
-        Capture {
-            OneOrMore(.digit)
-        }
-    }
-
-    private static let modifierPattern = Regex {
-        Capture {
-            One(.anyOf("+-"))
-        }
-        Capture {
-            OneOrMore(.digit)
-        }
-    }
-
     static func parse(_ input: String) -> RollResult {
-        // Normalize input to always start with an operator
         let normalized = input.trimmingCharacters(in: .whitespaces)
-        let cleanInput = normalized.hasPrefix("+") || normalized.hasPrefix("-")
-            ? normalized
-            : "+" + normalized
 
         var diceRolls: [DiceRoll] = []
         var modifiers: [Modifier] = []
 
-        // Parse dice rolls
-        for match in cleanInput.matches(of: dicePattern) {
-            guard let operation = Operation(rawValue: String(match.1)),
-                  let count = Int(match.2),
-                  let sides = Int(match.3),
-                  count > 0, sides > 0 else { continue }
+        let components = normalized.components(separatedBy: CharacterSet(charactersIn: "+-"))
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
 
-            let results = (0..<count).map { _ in Int.random(in: 1...sides) }
-            diceRolls.append(DiceRoll(
-                count: count,
-                sides: sides,
-                results: results,
-                operation: operation
-            ))
-        }
+        let operators = normalized.matches(of: /[+-]/).map { String($0.0) }
 
-        // Parse modifiers
-        for match in cleanInput.matches(of: modifierPattern) {
-            guard let operation = Operation(rawValue: String(match.1)),
-                  let value = Int(match.2) else { continue }
+        for (i, component) in components.enumerated() {
+            // For first component, use + if no operator present
+            let operation = i == 0 && !(normalized.hasPrefix("+") || normalized.hasPrefix("-"))
+                ? .add
+                : (Operation(rawValue: operators[i - 1]) ?? .add)
 
-            modifiers.append(Modifier(
-                value: value,
-                operation: operation
-            ))
+            if component.contains("d") {
+                guard component.filter({ $0 == "d" }).count == 1 else {
+                    continue  // Skip invalid components with multiple 'd's
+                }
+                print(component)
+
+                let parts = component.components(separatedBy: "d")
+                                   .map { $0.trimmingCharacters(in: .whitespaces) }
+                print(parts)
+                let count = parts[0].isEmpty ? 1 : (Int(parts[0]) ?? 1)
+                if let sides = Int(parts[1]), count > 0, sides > 0 {
+                    let results = (0..<count).map { _ in Int.random(in: 1...sides) }
+                    diceRolls.append(DiceRoll(count: count, sides: sides, results: results, operation: operation))
+                }
+            } else if let value = Int(component) {
+                modifiers.append(Modifier(value: value, operation: operation))
+            }
         }
 
         return RollResult(
