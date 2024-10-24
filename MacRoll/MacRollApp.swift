@@ -195,6 +195,7 @@ struct ContentView: View {
     @State private var rollResult: RollResult?
     @State private var rollHistory: [RollResult] = []
     @State private var showHistory = false
+    @AppStorage("historyEnabled") private var historyEnabled = true
 
     var body: some View {
         VStack(spacing: 12) {
@@ -205,6 +206,18 @@ struct ContentView: View {
                     .fontWeight(.bold)
                 Spacer()
                 Menu {
+                    Toggle("Enable History", isOn: Binding(
+                        get: { historyEnabled },
+                        set: { isEnabled in
+                            if !isEnabled {
+                                // Clear history when disabling
+                                rollHistory.removeAll()
+                                showHistory = false
+                            }
+                            historyEnabled = isEnabled
+                        }
+                    ))
+                    Divider()
                     Button("Quit", action: {
                         NSApplication.shared.terminate(nil)
                     })
@@ -231,7 +244,7 @@ struct ContentView: View {
                 ResultView(result: result)
             }
 
-            if !rollHistory.isEmpty {
+            if !rollHistory.isEmpty && historyEnabled{
                 Divider()
 
                 Button {
@@ -276,10 +289,13 @@ struct ContentView: View {
         guard !diceInput.isEmpty else { return }
         let result = DiceParser.parse(diceInput)
         rollResult = result
-        rollHistory.insert(result, at: 0)
 
-        if rollHistory.count > 50 {
-            rollHistory.removeLast()
+        if historyEnabled {
+            rollHistory.insert(result, at: 0)
+
+            if rollHistory.count > 50 {
+                rollHistory.removeLast()
+            }
         }
     }
 }
