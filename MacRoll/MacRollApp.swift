@@ -195,7 +195,7 @@ struct ContentView: View {
     @State private var rollResult: RollResult?
     @State private var rollHistory: [RollResult] = []
     @State private var showHistory = false
-    @AppStorage("historyEnabled") private var historyEnabled = true
+    @AppStorage("historyEnabled") private var historyEnabled = false
 
     var body: some View {
         VStack(spacing: 12) {
