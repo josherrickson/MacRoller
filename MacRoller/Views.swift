@@ -177,7 +177,7 @@ struct ContentView: View {
         VStack(spacing: 12) {
             // Menu Button
             HStack {
-                Text("MacRoll")
+                Text("MacRoller")
                     .font(.title)
                     .fontWeight(.bold)
                 Spacer()

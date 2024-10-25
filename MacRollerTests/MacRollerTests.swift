@@ -1,12 +1,5 @@
-//
-//  MacRollTests.swift
-//  MacRollTests
-//
-//  Created by Josh on 10/25/24.
-//
-
 import Testing
-@testable import MacRoll // Replace with your actual module name
+@testable import MacRoller
 
 struct DiceParserTests {
     // MARK: - Valid Input Tests

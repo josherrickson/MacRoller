@@ -7,42 +7,55 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		035F33712CCBC84900399EEC /* PBXContainerItemProxy */ = {
+		03ED05702CCC0AC200929D1B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 034B33B22CCA7EA00021998F /* Project object */;
+			containerPortal = 03ED05562CCC0AC100929D1B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 034B33B92CCA7EA00021998F;
-			remoteInfo = MacRoll;
+			remoteGlobalIDString = 03ED055D2CCC0AC100929D1B;
+			remoteInfo = MacRoller;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		034B33BA2CCA7EA00021998F /* MacRoll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacRoll.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		035F336D2CCBC84900399EEC /* MacRollTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacRollTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03ED055E2CCC0AC100929D1B /* MacRoller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacRoller.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03ED056F2CCC0AC200929D1B /* MacRollerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacRollerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0399D0972CCC0C4100137528 /* Exceptions for "MacRoller" folder in "MacRoller" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 03ED055D2CCC0AC100929D1B /* MacRoller */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		034B33BC2CCA7EA00021998F /* MacRoll */ = {
+		03ED05602CCC0AC100929D1B /* MacRoller */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MacRoll;
+			exceptions = (
+				0399D0972CCC0C4100137528 /* Exceptions for "MacRoller" folder in "MacRoller" target */,
+			);
+			path = MacRoller;
 			sourceTree = "<group>";
 		};
-		035F336E2CCBC84900399EEC /* MacRollTests */ = {
+		03ED05722CCC0AC200929D1B /* MacRollerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MacRollTests;
+			path = MacRollerTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		034B33B72CCA7EA00021998F /* Frameworks */ = {
+		03ED055B2CCC0AC100929D1B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		035F336A2CCBC84900399EEC /* Frameworks */ = {
+		03ED056C2CCC0AC200929D1B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -52,20 +65,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		034B33B12CCA7EA00021998F = {
+		03ED05552CCC0AC100929D1B = {
 			isa = PBXGroup;
 			children = (
-				034B33BC2CCA7EA00021998F /* MacRoll */,
-				035F336E2CCBC84900399EEC /* MacRollTests */,
-				034B33BB2CCA7EA00021998F /* Products */,
+				03ED05602CCC0AC100929D1B /* MacRoller */,
+				03ED05722CCC0AC200929D1B /* MacRollerTests */,
+				03ED055F2CCC0AC100929D1B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		034B33BB2CCA7EA00021998F /* Products */ = {
+		03ED055F2CCC0AC100929D1B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				034B33BA2CCA7EA00021998F /* MacRoll.app */,
-				035F336D2CCBC84900399EEC /* MacRollTests.xctest */,
+				03ED055E2CCC0AC100929D1B /* MacRoller.app */,
+				03ED056F2CCC0AC200929D1B /* MacRollerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,99 +86,99 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		034B33B92CCA7EA00021998F /* MacRoll */ = {
+		03ED055D2CCC0AC100929D1B /* MacRoller */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 034B33C92CCA7EA10021998F /* Build configuration list for PBXNativeTarget "MacRoll" */;
+			buildConfigurationList = 03ED05832CCC0AC200929D1B /* Build configuration list for PBXNativeTarget "MacRoller" */;
 			buildPhases = (
-				034B33B62CCA7EA00021998F /* Sources */,
-				034B33B72CCA7EA00021998F /* Frameworks */,
-				034B33B82CCA7EA00021998F /* Resources */,
+				03ED055A2CCC0AC100929D1B /* Sources */,
+				03ED055B2CCC0AC100929D1B /* Frameworks */,
+				03ED055C2CCC0AC100929D1B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				034B33BC2CCA7EA00021998F /* MacRoll */,
+				03ED05602CCC0AC100929D1B /* MacRoller */,
 			);
-			name = MacRoll;
+			name = MacRoller;
 			packageProductDependencies = (
 			);
-			productName = MacRoll;
-			productReference = 034B33BA2CCA7EA00021998F /* MacRoll.app */;
+			productName = MacRoller;
+			productReference = 03ED055E2CCC0AC100929D1B /* MacRoller.app */;
 			productType = "com.apple.product-type.application";
 		};
-		035F336C2CCBC84900399EEC /* MacRollTests */ = {
+		03ED056E2CCC0AC200929D1B /* MacRollerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 035F33732CCBC84900399EEC /* Build configuration list for PBXNativeTarget "MacRollTests" */;
+			buildConfigurationList = 03ED05862CCC0AC200929D1B /* Build configuration list for PBXNativeTarget "MacRollerTests" */;
 			buildPhases = (
-				035F33692CCBC84900399EEC /* Sources */,
-				035F336A2CCBC84900399EEC /* Frameworks */,
-				035F336B2CCBC84900399EEC /* Resources */,
+				03ED056B2CCC0AC200929D1B /* Sources */,
+				03ED056C2CCC0AC200929D1B /* Frameworks */,
+				03ED056D2CCC0AC200929D1B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				035F33722CCBC84900399EEC /* PBXTargetDependency */,
+				03ED05712CCC0AC200929D1B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				035F336E2CCBC84900399EEC /* MacRollTests */,
+				03ED05722CCC0AC200929D1B /* MacRollerTests */,
 			);
-			name = MacRollTests;
+			name = MacRollerTests;
 			packageProductDependencies = (
 			);
-			productName = MacRollTests;
-			productReference = 035F336D2CCBC84900399EEC /* MacRollTests.xctest */;
+			productName = MacRollerTests;
+			productReference = 03ED056F2CCC0AC200929D1B /* MacRollerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		034B33B22CCA7EA00021998F /* Project object */ = {
+		03ED05562CCC0AC100929D1B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					034B33B92CCA7EA00021998F = {
+					03ED055D2CCC0AC100929D1B = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					035F336C2CCBC84900399EEC = {
+					03ED056E2CCC0AC200929D1B = {
 						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 034B33B92CCA7EA00021998F;
+						TestTargetID = 03ED055D2CCC0AC100929D1B;
 					};
 				};
 			};
-			buildConfigurationList = 034B33B52CCA7EA00021998F /* Build configuration list for PBXProject "MacRoll" */;
+			buildConfigurationList = 03ED05592CCC0AC100929D1B /* Build configuration list for PBXProject "MacRoller" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 034B33B12CCA7EA00021998F;
+			mainGroup = 03ED05552CCC0AC100929D1B;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 034B33BB2CCA7EA00021998F /* Products */;
+			productRefGroup = 03ED055F2CCC0AC100929D1B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				034B33B92CCA7EA00021998F /* MacRoll */,
-				035F336C2CCBC84900399EEC /* MacRollTests */,
+				03ED055D2CCC0AC100929D1B /* MacRoller */,
+				03ED056E2CCC0AC200929D1B /* MacRollerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		034B33B82CCA7EA00021998F /* Resources */ = {
+		03ED055C2CCC0AC100929D1B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		035F336B2CCBC84900399EEC /* Resources */ = {
+		03ED056D2CCC0AC200929D1B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -175,14 +188,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		034B33B62CCA7EA00021998F /* Sources */ = {
+		03ED055A2CCC0AC100929D1B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		035F33692CCBC84900399EEC /* Sources */ = {
+		03ED056B2CCC0AC200929D1B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -192,15 +205,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		035F33722CCBC84900399EEC /* PBXTargetDependency */ = {
+		03ED05712CCC0AC200929D1B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 034B33B92CCA7EA00021998F /* MacRoll */;
-			targetProxy = 035F33712CCBC84900399EEC /* PBXContainerItemProxy */;
+			target = 03ED055D2CCC0AC100929D1B /* MacRoller */;
+			targetProxy = 03ED05702CCC0AC200929D1B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		034B33C72CCA7EA10021998F /* Debug */ = {
+		03ED05812CCC0AC200929D1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -263,7 +276,7 @@
 			};
 			name = Debug;
 		};
-		034B33C82CCA7EA10021998F /* Release */ = {
+		03ED05822CCC0AC200929D1B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -318,18 +331,19 @@
 			};
 			name = Release;
 		};
-		034B33CA2CCA7EA10021998F /* Debug */ = {
+		03ED05842CCC0AC200929D1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = MacRoll/MacRoll.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MacRoller/MacRoller.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MacRoll/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MacRoller/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacRoller/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.dice-games";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -338,26 +352,26 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRoll;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRoller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		034B33CB2CCA7EA10021998F /* Release */ = {
+		03ED05852CCC0AC200929D1B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = MacRoll/MacRoll.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MacRoller/MacRoller.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MacRoll/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MacRoller/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacRoller/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.dice-games";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -366,76 +380,78 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRoll;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRoller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		035F33742CCBC84900399EEC /* Debug */ = {
+		03ED05872CCC0AC200929D1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRollTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRollerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacRoll.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MacRoll";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacRoller.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MacRoller";
 			};
 			name = Debug;
 		};
-		035F33752CCBC84900399EEC /* Release */ = {
+		03ED05882CCC0AC200929D1B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRollTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRollerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacRoll.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MacRoll";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacRoller.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MacRoller";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		034B33B52CCA7EA00021998F /* Build configuration list for PBXProject "MacRoll" */ = {
+		03ED05592CCC0AC100929D1B /* Build configuration list for PBXProject "MacRoller" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				034B33C72CCA7EA10021998F /* Debug */,
-				034B33C82CCA7EA10021998F /* Release */,
+				03ED05812CCC0AC200929D1B /* Debug */,
+				03ED05822CCC0AC200929D1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		034B33C92CCA7EA10021998F /* Build configuration list for PBXNativeTarget "MacRoll" */ = {
+		03ED05832CCC0AC200929D1B /* Build configuration list for PBXNativeTarget "MacRoller" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				034B33CA2CCA7EA10021998F /* Debug */,
-				034B33CB2CCA7EA10021998F /* Release */,
+				03ED05842CCC0AC200929D1B /* Debug */,
+				03ED05852CCC0AC200929D1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		035F33732CCBC84900399EEC /* Build configuration list for PBXNativeTarget "MacRollTests" */ = {
+		03ED05862CCC0AC200929D1B /* Build configuration list for PBXNativeTarget "MacRollerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				035F33742CCBC84900399EEC /* Debug */,
-				035F33752CCBC84900399EEC /* Release */,
+				03ED05872CCC0AC200929D1B /* Debug */,
+				03ED05882CCC0AC200929D1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 034B33B22CCA7EA00021998F /* Project object */;
+	rootObject = 03ED05562CCC0AC100929D1B /* Project object */;
 }

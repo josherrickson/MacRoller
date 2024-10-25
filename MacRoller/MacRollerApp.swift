@@ -1,9 +1,9 @@
 import SwiftUI
 
 @main
-struct DiceRollerApp: App {
+struct MacRollerApp: App {
     var body: some Scene {
-        MenuBarExtra("MacRoll", systemImage: "dice") {
+        MenuBarExtra("MacRoller", systemImage: "dice") {
             ContentView()
         }
         .menuBarExtraStyle(.window)
