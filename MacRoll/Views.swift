@@ -25,12 +25,14 @@ struct ErrorPopover: View {
 
 struct CopyButton: View {
     let text: String
+    let fullText: String
+    @AppStorage("copyDiceRoll") private var copyDiceRoll = true
     @State private var isCopied = false
 
     var body: some View {
         Button {
             NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(text, forType: .string)
+            NSPasteboard.general.setString(copyDiceRoll ? fullText : text, forType: .string)
 
             // Show feedback
             withAnimation {
@@ -38,7 +40,7 @@ struct CopyButton: View {
             }
 
             // Reset after delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 withAnimation {
                     isCopied = false
                 }
@@ -60,18 +62,24 @@ struct ResultView: View {
         VStack(alignment: .leading, spacing: 8) {
             ForEach(result.diceRolls) { roll in
                 HStack {
-                    Text("\(roll.description): [\(roll.results.map(String.init).joined(separator: ", "))]")
-                        .font(.body)
+                    let resultsString = roll.results.map(String.init).joined(separator: ", ")
+                    let diceResultDescription = "\(roll.description): [\(resultsString)]"
 
-                    CopyButton(text: roll.results.map(String.init).joined(separator: ", "))
+                    Text(diceResultDescription)
+                        .font(.body)
 
                     if roll.results.count > 1 {
                         Text("Sum: \(roll.sum)")
                             .font(.body)
                             .foregroundColor(.secondary)
-
-                        CopyButton(text: String(roll.sum))
                     }
+
+                    Spacer()
+
+                    CopyButton(
+                        text: resultsString,
+                        fullText: diceResultDescription
+                    )
                 }
             }
 
@@ -87,7 +95,12 @@ struct ResultView: View {
                     .font(.title3)
                     .fontWeight(.bold)
 
-                CopyButton(text: String(result.total))
+                Spacer()
+
+                CopyButton(
+                    text: String(result.total),
+                    fullText: "\(result.input): \(result.total)"
+                )
             }
         }
     }
@@ -125,13 +138,23 @@ struct HistoryItemView: View {
                 Text("Result: \(result.total)")
                     .font(.caption)
                     .foregroundColor(.secondary)
+
             }
 
-            Button(action: onReuse) {
-                Image(systemName: "arrow.counterclockwise")
-                    .font(.caption)
+            VStack {
+                Button(action: onReuse) {
+                    Image(systemName: "arrow.counterclockwise")
+                        .font(.caption)
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+
+                CopyButton(
+                    text: String(result.total),
+                    fullText: "\(result.input): \(result.total)"
+                )
             }
-            .buttonStyle(.plain)
         }
         .padding(8)
         .background(Color.gray.opacity(0.1))
@@ -140,11 +163,14 @@ struct HistoryItemView: View {
 }
 
 struct ContentView: View {
+    @FocusState private var isInputFocused: Bool
     @State private var diceInput = "2d20 + 1"
     @State private var rollResult: RollResult?
     @State private var rollHistory: [RollResult] = []
     @State private var showHistory = false
     @AppStorage("historyEnabled") private var historyEnabled = false
+    @AppStorage("copyDiceRoll") private var copyDiceRoll = true
+    @State private var showErrorButton = false
     @State private var showErrorPopover = false
 
     var body: some View {
@@ -166,6 +192,7 @@ struct ContentView: View {
                             historyEnabled = isEnabled
                         }
                     ))
+                    Toggle("Include Roll Formula in Copy", isOn: $copyDiceRoll)
                     Divider()
                     Button("Quit", action: {
                         NSApplication.shared.terminate(nil)
@@ -185,9 +212,20 @@ struct ContentView: View {
             HStack {
                 TextField("Enter dice roll (e.g. 3d20 + 2)", text: $diceInput)
                     .textFieldStyle(.roundedBorder)
+                    .focused($isInputFocused)
                     .onSubmit(rollDice)
 
-                if let result = rollResult, !result.invalidComponents.isEmpty {
+                Button {
+                    diceInput = ""
+                    showErrorButton = false
+                    showErrorPopover = false
+                } label: {
+                    Image(systemName: "trash")
+                        .imageScale(.small)
+                }
+                .buttonStyle(.plain)
+
+                if showErrorButton, let result = rollResult {
                     Button {
                         showErrorPopover.toggle()
                     } label: {
@@ -247,13 +285,21 @@ struct ContentView: View {
         }
         .padding()
         .frame(width: 250)
+        .onAppear {
+            isInputFocused = true
+        }
     }
 
     private func rollDice() {
         guard !diceInput.isEmpty else { return }
         let result = DiceParser.parse(diceInput)
         rollResult = result
-        showErrorPopover = false  // Reset popover state on new roll
+        // reset all errors on new roll
+        showErrorPopover = false
+        showErrorButton = false
+        if !result.invalidComponents.isEmpty {
+            showErrorButton = true
+        }
 
         if historyEnabled {
             rollHistory.insert(result, at: 0)
