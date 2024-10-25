@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		035F33712CCBC84900399EEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 034B33B22CCA7EA00021998F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 034B33B92CCA7EA00021998F;
+			remoteInfo = MacRoll;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		034B33BA2CCA7EA00021998F /* MacRoll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacRoll.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		035F336D2CCBC84900399EEC /* MacRollTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacRollTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = MacRoll;
 			sourceTree = "<group>";
 		};
+		035F336E2CCBC84900399EEC /* MacRollTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MacRollTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		034B33B72CCA7EA00021998F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		035F336A2CCBC84900399EEC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				034B33BC2CCA7EA00021998F /* MacRoll */,
+				035F336E2CCBC84900399EEC /* MacRollTests */,
 				034B33BB2CCA7EA00021998F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				034B33BA2CCA7EA00021998F /* MacRoll.app */,
+				035F336D2CCBC84900399EEC /* MacRollTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = 034B33BA2CCA7EA00021998F /* MacRoll.app */;
 			productType = "com.apple.product-type.application";
 		};
+		035F336C2CCBC84900399EEC /* MacRollTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 035F33732CCBC84900399EEC /* Build configuration list for PBXNativeTarget "MacRollTests" */;
+			buildPhases = (
+				035F33692CCBC84900399EEC /* Sources */,
+				035F336A2CCBC84900399EEC /* Frameworks */,
+				035F336B2CCBC84900399EEC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				035F33722CCBC84900399EEC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				035F336E2CCBC84900399EEC /* MacRollTests */,
+			);
+			name = MacRollTests;
+			packageProductDependencies = (
+			);
+			productName = MacRollTests;
+			productReference = 035F336D2CCBC84900399EEC /* MacRollTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					034B33B92CCA7EA00021998F = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					035F336C2CCBC84900399EEC = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 034B33B92CCA7EA00021998F;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				034B33B92CCA7EA00021998F /* MacRoll */,
+				035F336C2CCBC84900399EEC /* MacRollTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		034B33B82CCA7EA00021998F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		035F336B2CCBC84900399EEC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		035F33692CCBC84900399EEC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		035F33722CCBC84900399EEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 034B33B92CCA7EA00021998F /* MacRoll */;
+			targetProxy = 035F33712CCBC84900399EEC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		034B33C72CCA7EA10021998F /* Debug */ = {
@@ -295,6 +370,38 @@
 			};
 			name = Release;
 		};
+		035F33742CCBC84900399EEC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRollTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacRoll.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MacRoll";
+			};
+			name = Debug;
+		};
+		035F33752CCBC84900399EEC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darsh.MacRollTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacRoll.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MacRoll";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -312,6 +419,15 @@
 			buildConfigurations = (
 				034B33CA2CCA7EA10021998F /* Debug */,
 				034B33CB2CCA7EA10021998F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		035F33732CCBC84900399EEC /* Build configuration list for PBXNativeTarget "MacRollTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				035F33742CCBC84900399EEC /* Debug */,
+				035F33752CCBC84900399EEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
