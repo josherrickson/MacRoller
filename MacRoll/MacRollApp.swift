@@ -58,6 +58,35 @@ struct RollResult: Identifiable {
     }
 }
 
+struct CopyButton: View {
+    let text: String
+    @State private var isCopied = false
+
+    var body: some View {
+        Button {
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(text, forType: .string)
+
+            // Show feedback
+            withAnimation {
+                isCopied = true
+            }
+
+            // Reset after delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    isCopied = false
+                }
+            }
+        } label: {
+            Image(systemName: isCopied ? "checkmark.circle.fill" : "doc.on.doc")
+                .foregroundColor(isCopied ? .green : .secondary)
+                .font(.caption)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 // MARK: - Parser
 struct DiceParser {
     static func parse(_ input: String) -> RollResult {
@@ -167,10 +196,15 @@ struct ResultView: View {
                 HStack {
                     Text("\(roll.description): [\(roll.results.map(String.init).joined(separator: ", "))]")
                         .font(.body)
+
+                    CopyButton(text: roll.results.map(String.init).joined(separator: ", "))
+
                     if roll.results.count > 1 {
                         Text("Sum: \(roll.sum)")
                             .font(.body)
                             .foregroundColor(.secondary)
+
+                        CopyButton(text: String(roll.sum))
                     }
                 }
             }
@@ -182,9 +216,13 @@ struct ResultView: View {
 
             Divider()
 
-            Text("Total: \(result.total)")
-                .font(.title3)
-                .fontWeight(.bold)
+            HStack {
+                Text("Total: \(result.total)")
+                    .font(.title3)
+                    .fontWeight(.bold)
+
+                CopyButton(text: String(result.total))
+            }
         }
     }
 }
