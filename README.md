@@ -4,7 +4,7 @@ A simple, privacy-respecting dice roller that lives in your Mac menubar. Roll
 dice using standard notation (2d20 + 1, 4d6 - 2, etc.) with a clean, native
 interface.
 
-[](https://macroller.com)
+<https://macroller.com>
 
 ## Features
 
@@ -17,7 +17,7 @@ interface.
 
 ## Installation
 
-1. Download the latest release from the [releases page](releases)
+1. Download the latest release from the [releases page](https://github.com/josherrickson/MacRoller/releases)
 2. Move MacRoller.app to your Applications folder
 3. Launch MacRoller
 
