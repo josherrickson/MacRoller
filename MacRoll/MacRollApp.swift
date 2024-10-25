@@ -61,7 +61,8 @@ struct RollResult: Identifiable {
 // MARK: - Parser
 struct DiceParser {
     static func parse(_ input: String) -> RollResult {
-        let normalized = input.trimmingCharacters(in: .whitespaces)
+        // trim whitespace and lowercase all letters
+        let normalized = input.trimmingCharacters(in: .whitespaces).lowercased()
 
         var diceRolls: [DiceRoll] = []
         var modifiers: [Modifier] = []
