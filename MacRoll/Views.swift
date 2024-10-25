@@ -214,16 +214,21 @@ struct ContentView: View {
                     .textFieldStyle(.roundedBorder)
                     .focused($isInputFocused)
                     .onSubmit(rollDice)
-
-                Button {
-                    diceInput = ""
-                    showErrorButton = false
-                    showErrorPopover = false
-                } label: {
-                    Image(systemName: "trash")
-                        .imageScale(.small)
-                }
-                .buttonStyle(.plain)
+                    .overlay(alignment: .trailing) {
+                        if !diceInput.isEmpty {  // Only show when there's text
+                            Button {
+                                diceInput = ""
+                                showErrorButton = false
+                                showErrorPopover = false
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.secondary)
+                                    .imageScale(.small)
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.trailing, 6)  // Add some spacing from the right edge
+                        }
+                    }
 
                 if showErrorButton, let result = rollResult {
                     Button {
