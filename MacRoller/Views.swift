@@ -170,6 +170,7 @@ struct ContentView: View {
     @State private var showHistory = false
     @AppStorage("historyEnabled") private var historyEnabled = false
     @AppStorage("copyDiceRoll") private var copyDiceRoll = true
+    @AppStorage("whimsyLevel") private var whimsyLevel = 2
     @State private var showErrorButton = false
     @State private var showErrorPopover = false
 
@@ -226,6 +227,11 @@ struct ContentView: View {
                             }
                         ))
                         Toggle("Include Roll Formula in Copy", isOn: $copyDiceRoll)
+                        Picker("Roll Button Whimsy Level", selection: $whimsyLevel) {
+                            Text("None").tag(1)
+                            Text("Some").tag(2)
+                            Text("More").tag(3)
+                        }
                         Divider()
                         Button("Quit", action: {
                             NSApplication.shared.terminate(nil)
@@ -239,8 +245,26 @@ struct ContentView: View {
                     .menuIndicator(.hidden)
                     .fixedSize()
                 }
-                Button("Roll", action: rollDice)
-                    .disabled(diceInput.isEmpty)
+                Button( action: {
+                    rollDice()
+                }, label: {
+                    if whimsyLevel == 1 {
+                        Text("Roll")
+                            .bold()
+                    } else if whimsyLevel == 2 {
+                        Image(systemName: "die.face.5")
+                        Text("Roll")
+                            .bold()
+                    } else if whimsyLevel == 3 {
+                        Image(systemName: "die.face.\(Int.random(in: 1...6))")
+                        Image(systemName: "die.face.\(Int.random(in: 1...6))")
+                        Image(systemName: "die.face.\(Int.random(in: 1...6))")
+                        Image(systemName: "die.face.\(Int.random(in: 1...6))")
+                        Image(systemName: "die.face.\(Int.random(in: 1...6))")
+                    }
+
+                })
+                .disabled(diceInput.isEmpty)
             }
 
             if let result = rollResult {
