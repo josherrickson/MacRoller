@@ -175,39 +175,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            // Menu Button
-            HStack {
-                Text("MacRoller")
-                    .font(.title)
-                    .fontWeight(.bold)
-                Spacer()
-                Menu {
-                    Toggle("Enable History", isOn: Binding(
-                        get: { historyEnabled },
-                        set: { isEnabled in
-                            if !isEnabled {
-                                rollHistory.removeAll()
-                                showHistory = false
-                            }
-                            historyEnabled = isEnabled
-                        }
-                    ))
-                    Toggle("Include Roll Formula in Copy", isOn: $copyDiceRoll)
-                    Divider()
-                    Button("Quit", action: {
-                        NSApplication.shared.terminate(nil)
-                    })
-                } label: {
-                    Image(systemName: "gear")
-                        .foregroundColor(.secondary)
-                        .frame(width: 20, height: 20)
-                }
-                .menuStyle(.borderlessButton)
-                .menuIndicator(.hidden)
-                .fixedSize()
-            }
-            .padding(.bottom, 4)
-
             // Main content
             HStack {
                 TextField("Enter dice roll (e.g. 3d20 + 2)", text: $diceInput)
@@ -244,8 +211,37 @@ struct ContentView: View {
                 }
             }
 
-            Button("Roll", action: rollDice)
-                .disabled(diceInput.isEmpty)
+            ZStack {
+                HStack {
+                    Spacer()
+                    Menu {
+                        Toggle("Enable History", isOn: Binding(
+                            get: { historyEnabled },
+                            set: { isEnabled in
+                                if !isEnabled {
+                                    rollHistory.removeAll()
+                                    showHistory = false
+                                }
+                                historyEnabled = isEnabled
+                            }
+                        ))
+                        Toggle("Include Roll Formula in Copy", isOn: $copyDiceRoll)
+                        Divider()
+                        Button("Quit", action: {
+                            NSApplication.shared.terminate(nil)
+                        })
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundColor(.secondary)
+                            .frame(width: 20, height: 20)
+                    }
+                    .menuStyle(.borderlessButton)
+                    .menuIndicator(.hidden)
+                    .fixedSize()
+                }
+                Button("Roll", action: rollDice)
+                    .disabled(diceInput.isEmpty)
+            }
 
             if let result = rollResult {
                 ResultView(result: result)
