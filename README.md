@@ -4,7 +4,7 @@ A simple, privacy-respecting dice roller that lives in your Mac menubar. Roll
 dice using standard notation (2d20 + 1, 4d6 - 2, etc.) with a clean, native
 interface.
 
-<https://macroller.com>
+<https://macmenuapps.com>
 
 ## Features
 
