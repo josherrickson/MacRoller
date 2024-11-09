@@ -19,8 +19,8 @@ struct DiceParser {
 
         for (i, component) in components.enumerated() {
             let operation = i == 0 && !(normalized.hasPrefix("+") || normalized.hasPrefix("-"))
-                ? .add
-                : (Operation(rawValue: operators[i - 1]) ?? .add)
+            ? .add
+            : (Operation(rawValue: operators[i - 1]) ?? .add)
 
             if component.contains("d") {
                 // If there are multiple 'd', error
@@ -31,7 +31,7 @@ struct DiceParser {
 
                 // If there's anything but 'd', numbers and whitespace, error
                 let validCharacters = CharacterSet.decimalDigits
-                    .union(CharacterSet(charactersIn: "d"))
+                    .union(CharacterSet(charactersIn: "df"))
                     .union(CharacterSet.whitespaces)
 
                 let invalidChars = component.unicodeScalars
@@ -41,14 +41,28 @@ struct DiceParser {
                 if !invalidChars.isEmpty {
                     invalidComponents.append((component,
                                               "Invalid character\(invalidChars.count > 1 ? "s" : ""): \(invalidChars.joined(separator: ", "))"
-                                              ))
+                                             ))
                     continue
                 }
 
                 let parts = component.components(separatedBy: "d")
-                               .map { $0.trimmingCharacters(in: .whitespaces) }
+                    .map { $0.trimmingCharacters(in: .whitespaces) }
 
                 let count = parts[0].isEmpty ? 1 : (Int(parts[0]) ?? 0)
+
+                // Fudge/FATE dice handling
+                if parts[1] == "f" {
+                    if count <= 0 {
+                        invalidComponents.append((component, "Invalid number of dice"))
+                        continue
+                    }
+                    let results = (0..<count).map { _ in
+                        [-1, 0, 1].randomElement() ?? 0
+                    }
+                    diceRolls.append(DiceRoll(count: count, sides: "F", results: results, operation: operation))
+                    continue
+                }
+
                 let sides = Int(parts[1]) ?? 0
 
                 if count <= 0 {
@@ -67,7 +81,7 @@ struct DiceParser {
                 } else {
                     results = (0..<count).map { _ in Int.random(in: 1...sides) }
                 }
-                diceRolls.append(DiceRoll(count: count, sides: sides, results: results, operation: operation))
+                diceRolls.append(DiceRoll(count: count, sides: String(sides), results: results, operation: operation))                
             } else if let value = Int(component) {
                 modifiers.append(Modifier(value: value, operation: operation))
             } else {

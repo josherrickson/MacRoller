@@ -12,7 +12,7 @@ enum Operation: String {
 struct DiceRoll: Identifiable {
     let id = UUID()
     let count: Int
-    let sides: Int
+    let sides: String
     let results: [Int]
     let operation: Operation
 
