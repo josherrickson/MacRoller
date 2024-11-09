@@ -172,6 +172,7 @@ struct ContentView: View {
     @AppStorage("copyDiceRoll") private var copyDiceRoll = true
     @AppStorage("whimsyLevel") private var whimsyLevel = 2
     @AppStorage("d10StartsAt0") private var d10StartsAt0 = false
+    @AppStorage("d100StartsAt0") private var d100StartsAt0 = false
     @State private var showErrorButton = false
     @State private var showErrorPopover = false
 
@@ -228,9 +229,17 @@ struct ContentView: View {
                             }
                         ))
                         Toggle("Include Roll Formula in Copy", isOn: $copyDiceRoll)
-                        Picker("D10 numbering", selection: $d10StartsAt0) {
-                            Text("0-9").tag(true)
-                            Text("1-10").tag(false)
+                        Menu {
+                            Picker("D10 numbering", selection: $d10StartsAt0) {
+                                Text("0-9").tag(true)
+                                Text("1-10").tag(false)
+                            }
+                            Picker("D100 numbering", selection: $d100StartsAt0) {
+                                Text("0-99").tag(true)
+                                Text("1-100").tag(false)
+                            }
+                        } label: {
+                            Text("Dice Configuration")
                         }
                         Picker("Roll Button Whimsy Level", selection: $whimsyLevel) {
                             Text("None").tag(1)
@@ -322,7 +331,9 @@ struct ContentView: View {
 
     private func rollDice() {
         guard !diceInput.isEmpty else { return }
-        let result = DiceParser.parse(diceInput, d10StartsAt0)
+        let result = DiceParser.parse(diceInput,
+                                      d10StartsAt0,
+                                      d100StartsAt0)
         rollResult = result
         // reset all errors on new roll
         showErrorPopover = false

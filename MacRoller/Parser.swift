@@ -1,7 +1,9 @@
 import Foundation
 
 struct DiceParser {
-    static func parse(_ input: String, _ d10StartsAt0: Bool = false) -> RollResult {
+    static func parse(_ input: String,
+                      _ d10StartsAt0: Bool = false,
+                      _ d100StartsAt0: Bool = false) -> RollResult {
         // trim whitespace and lowercase all letters
         let normalized = input.trimmingCharacters(in: .whitespaces).lowercased()
 
@@ -60,6 +62,8 @@ struct DiceParser {
                 let results: [Int]
                 if sides == 10 && d10StartsAt0 {
                     results = (0..<count).map { _ in Int.random(in: 0...9) }
+                } else if sides == 100 && d100StartsAt0 {
+                    results = (0..<count).map { _ in Int.random(in: 0...99) }
                 } else {
                     results = (0..<count).map { _ in Int.random(in: 1...sides) }
                 }
